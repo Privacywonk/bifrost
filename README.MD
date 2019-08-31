@@ -36,11 +36,6 @@ Add this to your crontab (not root) to run every 5 minutes: ```*/5 * * * * /path
 
 Depends on autossh being installed. 
 
-
-## Versioning
-
-For the versions available, see the [tags on this repository](https://github.com/Privacywonk/MMM-Surf/tags). 
-
 ## Authors
 
 * **me** - *Initial work* - [PrivacyWonk](https://github.com/PrivacyWonk)
