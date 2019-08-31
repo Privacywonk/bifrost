@@ -29,16 +29,15 @@ identity="username@host" #username and IP/host of remote side
 
  /usr/bin/autossh -i "$keyFilePath" -p "$SSHremotePort" -N -R "$SSHTunnelPort":localhost:"$SSHlocalPort" "$identity"
   if [[ $? -eq 0 ]]; then
-    echo Tunnel to jumpbox created successfully
+    echo Tunnel created successfully
   else
-    echo An error occurred creating a tunnel to jumpbox. RC was $?
+    echo An error occurred creating a tunnel. RC was $?
   fi
 }
 
 PROCESS_NUM=$(ps -ef |grep "2222\:localhost\:703" |wc -l)
 if [ "$PROCESS_NUM" == "0" ]; then
-  echo Creating new tunnel connection
+  echo Creating new tunnel connection...
   createTunnel
-else  
-  echo Tunnel already active
+  echo Tunnel already active...
 fi
