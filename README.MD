@@ -20,7 +20,7 @@ Depends on pon and poff ppp scripts.
 
 ### Tunnel.sh
 
-Depending on your LTE service provider, you may or may not be able to actually talk directly to the device over the LTE Network. In my case, the network I am using blocks all incoming traffic. Thus a reverse tunnel or VPN is necessary.
+Depending on your LTE service provider, you may or may not be able to actually talk directly to the device over the LTE Network. In my case, the network I am using either blocks all incoming traffic or have cgnat in place that makes direct comms impossible. Thus a reverse tunnel or VPN is necessary.
 
 tunnel.sh uses autossh to create and sustain a reverse tunnel that will automatically reconnect when the network switches between primary network connectivity and LTE. The script is meant to be executed by crontab and contains fall back code in the event that autossh fails or exits permanetly for weirdness. 
 
