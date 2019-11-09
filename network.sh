@@ -1,6 +1,6 @@
 ###############################################################
-# Network Switcher for LTE Rpi 
-# v1.0
+# Network Route Switcher for LTE Rpi 
+# v2.0
 # email: privacywonk@privacywonk.net
 # date: 2019-11-09
 # Instructions:
