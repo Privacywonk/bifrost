@@ -20,6 +20,16 @@ cdr_count=`/sbin/ip route | awk '/default/ { print $5 }' |wc -l`
 piface_status=`cat /sys/class/net/"$piface"/operstate`
 email_addr="update@thisaddress.com" #update this address
 
+#Always ensure pppd is running, if it's not execute pon scripts
+if [ "$(/bin/pidof pppd)" ]
+then
+        printf "`date` :::(0) PPPD is running."
+else
+        /usr/bin/pon
+        printf "`date` :::(0) PPPD not running, turning on"
+fi
+
+
 if [ "$cdr_count" -ne 0 ] #check to see if there is at least one valid network route first....
 then #test connectivity to primary wan
 	printf "\nPinging "$pingip" from "$piface".\n"
