@@ -78,7 +78,7 @@ then #test connectivity to primary wan
 					printf "`date` :::(5) Ping failed on "$piface" and default route is to "$siface". Exiting.\n"
 					exit
 			fi
-			if [ "$piface_status" != "up" ]
+			if [ "$piface_status" != "up" ] #check if the interface is up as a failure mode
 			then
 					printf "`date` :::(6) Ping failed on "$piface" - interface not up. Switching to "$siface". \n"
 					/sbin/route del default
@@ -90,7 +90,7 @@ then #test connectivity to primary wan
 
 		fi
 
-else #if no valid network routes, fail back to primary wan. If primary WAN fails on next check, it will activate the secondary WAN route
+else #if no default network routes, fail back to primary wan. If primary WAN fails on next check, it will activate the secondary WAN route
 	printf "\n`date` :::Pinging "$pingip" from "$siface".\n"
 	/bin/ping -I "$siface" -c 2 -q "$pingip" >/dev/null
 	if [ "$?" -eq 0 ]; then
