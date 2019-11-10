@@ -32,8 +32,8 @@ fi
 
 if [ "$cdr_count" -ne 0 ] #check to see if there is at least one valid network route first....
 then #test connectivity to primary wan
-	printf "\nPinging "$pingip" from "$piface".\n"
-	/bin/ping -I "$piface" -c 2 -q "$pingip"
+	printf "\n`date` :::Pinging "$pingip" from "$piface".\n"
+	/bin/ping -I "$piface" -c 2 -q "$pingip" >/dev/null
 		if [ "$?" -eq 0 ]; then       # if ping succeeds on primary WAN interface
 
 			if [ "$check_default_route" = "$piface" ] #and the default route goes to primary interface
@@ -91,8 +91,8 @@ then #test connectivity to primary wan
 		fi
 
 else #if no valid network routes, fail back to primary wan. If primary WAN fails on next check, it will activate the secondary WAN route
-	printf "\nPinging "$pingip" from "$siface".\n"
-	/bin/ping -I "$siface" -c 2 -q "$pingip"
+	printf "\n`date` :::Pinging "$pingip" from "$siface".\n"
+	/bin/ping -I "$siface" -c 2 -q "$pingip" >/dev/null
 	if [ "$?" -eq 0 ]; then
 		/sbin/route del default "$piface"
 		/sbin/route add default "$siface"
