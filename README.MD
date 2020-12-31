@@ -20,11 +20,11 @@ Depends on pon and poff ppp scripts and mailx.
 
 ### ssh-tunnel.service
 
-A systemd service file to install in ```/etc/systemd/system/``` to create and monitor an ssh tunnel that is treated as a system service.
+A systemd service file to install in ```/etc/systemd/system/``` to create and monitor a ssh tunnel.
 
 To tune to your specific environment edit the following:
 
-* keyFilePath - provide the private key identity file
+* keyFilePath - provide the *full path* to a private key identity file
 * SSHremotePort - the port that SSH runs on the remote host (normally 22, change if not)
 * SSHTunnelPort - the port number you want to use for the SSH tunnel on the *remote* host. Think very high. Examples: 2222,5555, etc.
 * SSHlocalPort - the port SSH is running on from the machine your are initiating the connection from (normally 22, change if not)
