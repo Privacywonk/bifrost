@@ -1,0 +1,26 @@
+[Unit]
+Description=SSH Reverse Tunnel
+ConditionPathExists=|/usr/bin
+After=network.target
+
+[Service]
+User=pi
+# SSH Env Vars -- UPDATE FOR YOUR ENVIRONMENT
+Environment=keyFilePath="" #path to private key identity file
+Environment=SSHremotePort="22" #remote side SSH service port. Normally 22, change if different
+Environment=SSHTunnelPort="2222" #remote side port that the tunnel will be bound to (think high port numbers, e.g. 2222, 5555, etc.)
+Environment=SSHlocalPort="22" #port where SSH runs on the originating side (normally 22, change if different)
+Environment=identity="username@host" #username and IP/host of remote side 
+
+ExecStart=/usr/bin/ssh -p "$SSHremotePort" -NTC -o ServerAliveInterval=60 -o ExitOnForwardFailure=yes -o StrictHostKeyChecking=no -i "$keyFilePath" -R "$SSHTunnelPort":localhost:"$SSHlocalPort" "$identity"
+
+# Restart every >2 seconds to avoid StartLimitInterval failure
+RestartSec=3
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
+
+
+
+ 
