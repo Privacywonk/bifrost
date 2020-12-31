@@ -15,10 +15,29 @@ You can tweak the interface and the destination by editng the variables ```iface
 
 Add this to your crontab (root) to run every 5 minutes: ```*/5 * * * * /path/to/network.sh 2>&1```
 
-Depends on pon and poff ppp scripts. 
+Depends on pon and poff ppp scripts and mailx.
 
 
-### Tunnel.sh
+### ssh-tunnel.service
+
+A systemd service file to install in ```/etc/systemd/system/``` to create and monitor an ssh tunnel that is treated as a system service.
+
+To tune to your specific environment edit the following:
+
+* keyFilePath - provide the private key identity file
+* SSHremotePort - the port that SSH runs on the remote host (normally 22, change if not)
+* SSHTunnelPort - the port number you want to use for the SSH tunnel on the *remote* host. Think very high. Examples: 2222,5555, etc.
+* SSHlocalPort - the port SSH is running on from the machine your are initiating the connection from (normally 22, change if not)
+* identity - the username and host/IP address you wish to connect to
+
+After editing, move the file ```mv ssh-tunnel.service /etc/systemd/service```
+Then start the service to test: ```systemctl start ssh-tunnel```
+Then enable the service at boot time: ```systemctl enable ssh-tunnel```
+
+This service will get bounced by networh.sh when the network switches ensuring the reverse tunnel is always up.
+
+
+### Tunnel-autossh.sh (deprecated but kept for legacy purposes...systemd service works much better).
 
 Depending on your LTE service provider, you may or may not be able to actually talk directly to the device over the LTE Network. In my case, the network I am using either blocks all incoming traffic or have cgnat in place that makes direct comms impossible. Thus a reverse tunnel or VPN is necessary.
 
